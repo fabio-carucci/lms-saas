@@ -7,9 +7,9 @@ import SubjectFilter from "@/components/SubjectFilter";
 const CompanionsLibrary = async ({
   searchParams,
 }: {
-  searchParams: { subject?: string; topic?: string };
+  searchParams: Promise<{ subject?: string; topic?: string }>;
 }) => {
-  const { subject, topic } = searchParams;
+  const { subject, topic } = await searchParams;
 
   const companions = await getAllCompanions({ subject, topic });
 
