@@ -94,7 +94,13 @@ const CompanionComponent = ({
       serverMessages: [],
     };
 
-    // @ts-expect-error
+    // @ts-expect-error We're using the `configureAssistant` function from the VAPI to
+    // create an assistant object. The function takes two arguments, the
+    // `voice` and `style` objects, and returns an object with the
+    // "assistant" property. However, the TypeScript compiler doesn't
+    // know about the `configureAssistant` function, so we have to use
+    // the `// @ts-expect-error` comment to tell the compiler to ignore
+    // the error.
     vapi.start(configureAssistant(voice, style), assistantOverrides);
   };
 
