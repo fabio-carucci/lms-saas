@@ -10,18 +10,21 @@ import { cn, getSubjectColor } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
+interface CompanionsListProps {
+  title: string;
+  companions?: Companion[];
+  className?: string;
+}
+
 const CompanionsList = ({
   title,
   companions,
   className,
-}: {
-  title: string;
-  companions: Companion[];
-  className?: string;
-}) => {
+}: CompanionsListProps) => {
   return (
     <article className={cn("companion-list", className)}>
-      <h2 className="text-3xl font-bold">{title}</h2>
+      <h2 className="font-bold text-3xl">{title}</h2>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -31,9 +34,9 @@ const CompanionsList = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {companions?.map(({ id, subject, name, topic, duration }) => (
-            <TableRow key={id}>
-              <TableCell className="font-medium">
+          {companions?.map(({ id, subject, name, topic, duration }, index) => (
+            <TableRow key={index}>
+              <TableCell>
                 <Link href={`/companions/${id}`}>
                   <div className="flex items-center gap-2">
                     <div
@@ -42,7 +45,7 @@ const CompanionsList = ({
                     >
                       <Image
                         src={`/icons/${subject}.svg`}
-                        alt="Subject"
+                        alt={subject}
                         width={35}
                         height={35}
                       />
@@ -64,7 +67,7 @@ const CompanionsList = ({
                 >
                   <Image
                     src={`/icons/${subject}.svg`}
-                    alt="Subject"
+                    alt={subject}
                     width={18}
                     height={18}
                   />
@@ -77,7 +80,7 @@ const CompanionsList = ({
                   </p>
                   <Image
                     src="/icons/clock.svg"
-                    alt="Minutes"
+                    alt="minutes"
                     width={14}
                     height={14}
                     className="md:hidden"
