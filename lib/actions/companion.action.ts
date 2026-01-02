@@ -50,7 +50,8 @@ export const getAllCompanions = async ({
   const { data: companions, error } = await query;
 
   if (error || !companions) {
-    throw new Error(error?.message || "Failed to fetch companions");
+    console.error("Error fetching companions:", error);
+    return [];
   }
 
   // Get an array of companion IDs
@@ -119,7 +120,8 @@ export const getRecentSessions = async (limit = 10) => {
     .limit(limit);
 
   if (error || !data) {
-    throw new Error(error?.message || "Failed to fetch recent sessions");
+    console.error("Error fetching recent sessions:", error);
+    return [];
   }
 
   return data.map(({ companions }) => companions);
